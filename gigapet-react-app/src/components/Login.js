@@ -24,7 +24,7 @@ e.preventDefault();
 // .then(res => {
     console.log("Login", creds);
     localStorage.setItem("token", "res.data.payload??");
-    // props.history.push(`/home/${res.data.unsername??}`)
+     props.history.push(`/home`)
 // })
     };
 
