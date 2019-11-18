@@ -1,23 +1,58 @@
-import React from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import React, { useState, useEffect } from 'react';
+import { withFormik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
 
-const FoodEntry = (props) => {
+const FoodEntry = ({status}) => {
+
+    const [foods, setFoods] = useState([]);
+
+    useEffect(() => {
+        status && setFoods(foods => [...foods, status]);
+    }, [status]);
+
   return (
-    <Form>
-      <FormGroup>
-        <Input type="text" name="foodEntry" id="foodEntry" placeholder="Enter food here" />
-      </FormGroup>
-      <FormGroup>
-        <Input type="select" name="foodCategory" id="foodCategory">
-          <option>Select a category</option>
-          <option>Carbohydrate</option>
-          <option>Protein</option>
-          <option>Fat</option>
-        </Input>
-      </FormGroup>
-      <Button>Submit</Button>
-    </Form>
+      <div>
+          <Form>
+              <Field type="text" name="foodEntry" placeholder="Enter food here" />
+              <Field as="select" className="food-category" name="category">
+                <option>Select a category</option>
+                <option>Carbohydrate</option>
+                <option>Protein</option>
+                <option>Fat</option>
+              </Field>
+              <button>Submit</button>
+          </Form>
+          {foods.map(food => (
+              <ul>
+                <li>Food: {food.foodEntry}</li>
+                <li>Category: {food.category}</li>
+              </ul>
+          ))}
+      </div>
   );
-}
+};
 
-export default FoodEntry;
+const FormikFoodForm = withFormik({
+    mapPropsToValues({ food, category }) {
+      return {
+        food: food || "",
+        category: category || ""
+      };
+    },
+    validationSchema: Yup.object().shape({
+        food: Yup.string().required("This is a food error!"),
+        category: Yup.string().required("This is a category error!")
+    }),
+    handleSubmit(values, { setStatus }) {
+      axios
+        .post("https://reqres.in/api/users", values)
+        .then(res => {
+          setStatus(res.data);
+          console.log(res);
+        })
+        .catch(err => console.log(err.response));
+    }
+})(FoodEntry);
+
+export default FormikFoodForm;
