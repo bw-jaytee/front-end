@@ -5,7 +5,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
     return (
         <>
-    <h2>In PrivateRouter</h2>
 <Route
 {...rest}
 render={()=> {

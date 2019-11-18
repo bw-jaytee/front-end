@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import './App.css';
+import './styles.css';
 import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
 import UserHome from './components/UserHome';
