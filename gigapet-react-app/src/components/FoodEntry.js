@@ -5,11 +5,9 @@ const FoodEntry = (props) => {
   return (
     <Form>
       <FormGroup>
-        <Label for="foodEntry">Email</Label>
         <Input type="text" name="foodEntry" id="foodEntry" placeholder="Enter food here" />
       </FormGroup>
       <FormGroup>
-        <Label for="foodCategory">Select</Label>
         <Input type="select" name="foodCategory" id="foodCategory">
           <option>Select a category</option>
           <option>Carbohydrate</option>
