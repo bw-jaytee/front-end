@@ -20,3 +20,26 @@
 .App-link {
   color: #09d3ac;
 }
+
+.form{
+  width: 40%;
+  margin: 10% auto;
+  padding: 4%;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.submitButton{
+  margin-top: 10%;
+  margin-left: 40%;
+}
+=======
+.pet-card {
+  display: flex;
+  justify-content: center;
+  margin: 2%;
+}
+
+.food-entry {
+  display: flex;
+}

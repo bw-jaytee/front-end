@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import './App.css';
 import './styles.css';
 import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
@@ -13,6 +14,7 @@ function App() {
       {/* <Route path='/register' component={RegistrationForm}/> */}
       <PrivateRoute path="/home" component={UserHome} />
     </div>
+    
   );
 }
 
