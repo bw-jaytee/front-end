@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { Card, Button, CardTitle, CardDeck,  CardSubtitle, CardBody } from 'reactstrap';
 
-const FoodEntry = ({status}) => {
+const FoodEntry = ({status, errors, touched}) => {
 
     const [foods, setFoods] = useState([]);
 
@@ -12,37 +13,49 @@ const FoodEntry = ({status}) => {
     }, [status]);
 
   return (
-      <div>
+      <div className="food-entry">
           <Form>
-              <Field type="text" name="foodEntry" placeholder="Enter food here" />
+              <Field type="text" name="entry" placeholder="Enter food here" />
+                {touched.entry && errors.entry && (
+                    <p className="errors">{errors.entry}</p>
+                )}
               <Field as="select" className="food-category" name="category">
                 <option>Select a category</option>
                 <option>Carbohydrate</option>
                 <option>Protein</option>
                 <option>Fat</option>
               </Field>
-              <button>Submit</button>
+                {touched.category && errors.category && (
+                    <p className="errors">{errors.category}</p>
+                )}
+              <button type="submit">Submit</button>
           </Form>
           {foods.map(food => (
-              <ul>
-                <li>Food: {food.foodEntry}</li>
-                <li>Category: {food.category}</li>
-              </ul>
+            <CardDeck key={food.id}>
+                <Card>
+                    <CardBody>
+                    <CardTitle>Food: {food.entry}</CardTitle>
+                    <CardSubtitle>Category: {food.category}</CardSubtitle>
+                    <Button>Edit</Button>
+                    <Button>Delete</Button>
+                    </CardBody>
+                </Card>
+            </CardDeck>
           ))}
       </div>
   );
 };
 
 const FormikFoodForm = withFormik({
-    mapPropsToValues({ food, category }) {
+    mapPropsToValues({ entry, category }) {
       return {
-        food: food || "",
+        entry: entry || "",
         category: category || ""
       };
     },
     validationSchema: Yup.object().shape({
-        food: Yup.string().required("This is a food error!"),
-        category: Yup.string().required("This is a category error!")
+        entry: Yup.string().required("Please enter a food"),
+        category: Yup.string().required("Please select a food category")
     }),
     handleSubmit(values, { setStatus }) {
       axios

@@ -21,6 +21,12 @@
   color: #09d3ac;
 }
 
-/* .pet-card {
+.pet-card {
   display: flex;
-} */
+  justify-content: center;
+  margin: 2%;
+}
+
+.food-entry {
+  display: flex;
+}
