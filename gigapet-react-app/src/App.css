@@ -33,3 +33,13 @@
   margin-top: 10%;
   margin-left: 40%;
 }
+=======
+.pet-card {
+  display: flex;
+  justify-content: center;
+  margin: 2%;
+}
+
+.food-entry {
+  display: flex;
+}
