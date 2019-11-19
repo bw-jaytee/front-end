@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 // import FoodEntry from "./FoodEntry";
@@ -8,8 +8,8 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import "../styles.css";
 
 const UserHome = props => {
-    console.log("UserHome props.rest", props);
-  //this state will hold ALL user data: userId, name/info, food entry history, pet status
+  console.log("UserHome props.rest", props);
+  //this state will hold ALL user data: userId, name/info, food entry history, pet status as per backend set-up
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
@@ -19,7 +19,10 @@ const UserHome = props => {
   const fetchData = () => {
     axiosWithAuth()
       .get("API endpoint HERE")
-      .then(res => {})
+      .then(res => {
+        console.log(res.data);
+        //setUserData({});
+      })
       .catch(err => console.log(err));
   };
 
