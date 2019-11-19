@@ -20,7 +20,7 @@ const Login = props => {
   const HandleSubmit = e => {
     e.preventDefault();
     // axiosWithAuth()
-    // .post("???", creds)
+    // .post("/login", creds)
     // .then(res => {
     console.log("Login", creds);
     localStorage.setItem("token", "res.data.payload??");
