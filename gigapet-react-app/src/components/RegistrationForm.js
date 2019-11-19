@@ -4,7 +4,7 @@ import {Formik, Field} from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
-const RegistrationForm = ({status, setUser}) => {
+const RegistrationForm = ({status}) => {
     const [setUser] = useState([]);
 
     useEffect(() => {
@@ -13,19 +13,12 @@ const RegistrationForm = ({status, setUser}) => {
 
     return (
         <Formik 
-            initialValues={{email:'', password:'', children:0}} 
+            initialValues={{email:'', password:''}} 
             validationSchema={SignupSchema} 
-            onSubmit={(values, {setStatus, resetForm}) => {
-                axios
-                .post('https://reqres.in/api/users', values)
-                .then(response => {
-                    console.log(response.data);
-                    setStatus(response.data)
-                })
-                .catch(error => console.log(error.response))
-                .finally(() => {resetForm({})})
-                }}>
-            <Form>
+            onSubmit={FormSubmit}
+            >
+                {props => (
+            <Form className='form' onSubmit={props.handleSubmit}>
                 <FormGroup row>
                     <Label for="inputEmail" sm={2}>Email</Label>
                     <Col sm={10}>
@@ -38,18 +31,9 @@ const RegistrationForm = ({status, setUser}) => {
                         <Field type={"password"} name="password" id="inputPassword" placeholder="Enter Password" component={customInput} />
                     </Col>
                 </FormGroup>
-                    <FormGroup row>
-                    <Label for="childrenSelect" sm={2}>Number of Children</Label>
-                    <Col sm={10}>
-                        <Field type={"select"} name="children" id="childrenSelect" component={customInput}>
-                        <option>Select Number of Children</option>
-                        <option>1</option>
-                        <option>2</option>
-                        </Field>
-                    </Col>
-                </FormGroup>
-                <Button type='submit'>Submit</Button>
+                <Button className='submitButton' type='submit'>Create</Button>
             </Form>
+                )}
         </Formik>
     )
 };
@@ -62,8 +46,19 @@ const customInput = ({field, form: {touched, errors}, ...props}) => (
 );
 const SignupSchema = Yup.object().shape({
     email: Yup.string().email('Invalid Email').required('Required'),
-    password: Yup.string().min(6, 'Must be at least 6 characters').max(25, 'This is much too long, keep it under 25').required('Required'),
-    children: Yup.number().required('This is for kids!')
-})
+    password: Yup.string().min(6, 'Must be at least 6 characters').max(25, 'This is much too long, keep it under 25').required('Required')
+});
+const FormSubmit = (values, {setStatus, resetForm}) => {
+    axios
+    .post('https://reqres.in/api/users', values)
+    .then(res => {
+        setStatus(res.data);
+        console.log(setStatus)
+    })
+    .catch(err => console.log(err.res))
+    .finally(() =>{
+        resetForm({})
+    })
+}
 
 export default RegistrationForm
