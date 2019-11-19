@@ -28,6 +28,10 @@ e.preventDefault();
 // })
     };
 
+    const toRegister = () => {
+props.history.push("/register");
+    };
+
     return(
         <form
         onSubmit={HandleSubmit}>
@@ -53,6 +57,10 @@ e.preventDefault();
                 </label>
             </div>
             <button>Submit</button>
+            <div>
+                <h4>New to Gigapet?</h4>
+                <button onClick={toRegister}>Register</button>
+            </div>
         </form>
     )
 };
