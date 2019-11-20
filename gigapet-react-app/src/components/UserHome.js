@@ -18,7 +18,7 @@ const UserHome = props => {
 
   const fetchData = () => {
     axiosWithAuth()
-      .get("/usereatz")
+      .get("/users/getuserinfo")
       .then(res => {
         console.log(res.data);
         //setUserData({});
