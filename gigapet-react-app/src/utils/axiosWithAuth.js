@@ -1,18 +1,17 @@
-//import axios from "axios";
-const axios = require("axios");
-  const oauth = require("axios-oauth-client");
+import axios from "axios";
+// const axios = require("axios");
+//   const oauth = require("axios-oauth-client");
 
 export const axiosWithAuth = () => {
   
   const token = localStorage.getItem("token");
 
-  console.log(`https://stilljack-gigapetbackend.herokuapp.com/${oauth}/${token}`);
 
   return axios.create({
-    baseURL: `https://stilljack-gigapetbackend.herokuapp.com/${oauth}/${token}`,
+    baseURL: `https://stilljack-gigapetbackend.herokuapp.com`,
     headers: {
         // btoa is converting our client id/client secret into base64
-        Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
+        Authorization: token,
         "Content-Type": "application/x-www-form-urlencoded"
       }
   });

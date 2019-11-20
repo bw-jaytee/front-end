@@ -11,7 +11,7 @@ const Login = props => {
     password: ""
   });
 
-  console.log("Login creds", creds);
+  //console.log("Login creds", creds);
 
   const entryHandler = e => {
     let value = e.target.value;
@@ -19,7 +19,7 @@ const Login = props => {
       ...creds,
       [e.target.name]: value
     });
-    console.log("entryHandler", value, creds);
+    //console.log("entryHandler", value, creds);
   };
 
   //console.log(btoa("lambda:lambdasecret"));

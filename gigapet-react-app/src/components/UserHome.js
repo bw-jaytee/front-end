@@ -18,7 +18,7 @@ const UserHome = props => {
 
   const fetchData = () => {
     axiosWithAuth()
-      .get("API endpoint HERE")
+      .get("/usereatz")
       .then(res => {
         console.log(res.data);
         //setUserData({});
