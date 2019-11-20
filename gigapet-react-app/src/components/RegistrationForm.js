@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Col, Button, Form, FormFeedback, FormGroup, Label, Input } from 'reactstrap';
 import {Formik, Field} from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
-// https://stilljack-gigapetbackend.herokuapp.com/createnewuser
 
 const RegistrationForm = (props) => {
 
-    const FormSubmit = (values, {setSubmitting, resetForm}) => {
+    const FormSubmit = (values, {setStatus, setSubmitting, resetForm}) => {
+        console.log(values)
         axios
         .post('https://stilljack-gigapetbackend.herokuapp.com/createnewuser', values)
         .then(res => {
-            console.log(res.data);
+            setStatus(res.data)
+            console.log(res);
             resetForm({});
         })
         .catch(err => console.log(err.res, 'You\'ve done goofed'))
