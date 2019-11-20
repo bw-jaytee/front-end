@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-// import FoodEntry from "./FoodEntry";
-// import PetCard from "./PetCard";
-// import RegistrationForm from "./RegistrationForm";
-import "../styles.css";
+import FoodEntry from "./FoodEntry";
+import PetCard from "./PetCard";
+// import FoodSummary from "??";
 
 const UserHome = props => {
-  console.log("UserHome props.rest", props);
+  console.log("UserHome props", props);
+
   //this state will hold ALL user data: userId, name/info, food entry history, pet status as per backend set-up
   const [userData, setUserData] = useState({});
 
@@ -18,7 +18,7 @@ const UserHome = props => {
 
   const fetchData = () => {
     axiosWithAuth()
-      .get("API endpoint HERE")
+      .get("/users/getuserinfo")
       .then(res => {
         console.log(res.data);
         //setUserData({});
@@ -31,16 +31,18 @@ const UserHome = props => {
     props.history.push("/login");
   };
 
+  const goToSummary = () => {
+    props.history.push("/register");
+  };
+
   return (
     <>
       <header className="header">
         <h3>{`Welcome username`}</h3>
-        <button onClick={logOut}>Log Out</button>
+        <button className ="submitButton" onClick={logOut}>Log Out</button>
       </header>
-      <div className="components">
-        <h3 className="component">FoodEntry</h3>
-        <h3 className="component">PetStatus</h3>
-      </div>
+      <FoodEntry />
+      <PetCard />
       <button>See Summary -></button>
     </>
   );
