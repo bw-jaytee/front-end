@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "axios-oauth-client": "^1.2.1",
+    "now": "^16.5.2"
+  }
+}

@@ -2,11 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { Card, Button, CardTitle, CardDeck,  CardSubtitle, CardBody } from 'reactstrap';
+import { Card, CardTitle, CardDeck,  CardSubtitle, CardBody,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButtonDropdown,
+  Input,
+  Button,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem } from 'reactstrap';
 
 const FoodEntry = ({status, errors, touched}) => {
 
     const [foods, setFoods] = useState([]);
+    const [splitButtonOpen, setSplitButtonOpen] = useState(false);
+
+    const toggleSplit = () => setSplitButtonOpen(!splitButtonOpen);
 
     useEffect(() => {
         status && setFoods(foods => [...foods, status]);
@@ -14,7 +25,31 @@ const FoodEntry = ({status, errors, touched}) => {
 
   return (
       <div className="food-entry">
-          <Form>
+        <InputGroup>
+          <InputGroupButtonDropdown addonType="prepend" isOpen={splitButtonOpen} toggle={toggleSplit}>
+            <Button outline className="food-category" name="category">Select a category</Button>
+              {touched.category && errors.category && (
+                  <p className="errors">{errors.category}</p>
+              )}
+            <DropdownToggle split outline />
+            <DropdownMenu>
+              <DropdownItem>Carbohydrate</DropdownItem>
+              <DropdownItem>Protein</DropdownItem>
+              <DropdownItem>Fat</DropdownItem>
+            </DropdownMenu>
+          </InputGroupButtonDropdown>
+          <Input name="entry" placeholder="Enter food here" />
+            {touched.entry && errors.entry && (
+                <p className="errors">{errors.entry}</p>
+            )}
+          <InputGroupAddon addonType="append"><Button color="secondary">Submit</Button></InputGroupAddon>
+        </InputGroup>
+
+
+
+
+
+          {/* <Form className="food-form">
               <Field type="text" name="entry" placeholder="Enter food here" />
                 {touched.entry && errors.entry && (
                     <p className="errors">{errors.entry}</p>
@@ -28,8 +63,8 @@ const FoodEntry = ({status, errors, touched}) => {
                 {touched.category && errors.category && (
                     <p className="errors">{errors.category}</p>
                 )}
-              <button type="submit">Submit</button>
-          </Form>
+              <Button type="submit">Submit</Button>
+          </Form> */}
           {foods.map(food => (
             <CardDeck key={food.id}>
                 <Card>
@@ -59,7 +94,7 @@ const FormikFoodForm = withFormik({
     }),
     handleSubmit(values, { setStatus }) {
       axios
-        .post("https://reqres.in/api/users", values)
+        .post("https://stilljack-gigapetbackend.herokuapp.com/eatz/create", values)
         .then(res => {
           setStatus(res.data);
           console.log(res);

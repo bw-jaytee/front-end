@@ -56,11 +56,17 @@ const RegistrationForm = (props) => {
     )
 };
 
-const customInput = ({field, form: {touched, errors}, ...props}) => (
-    <div>
-        <Input invalid={!!(touched[field.name] && errors[field.name])} {...field} {...props} />
-        {touched[field.name] && errors[field.name] && <FormFeedback>{errors[field.name]}</FormFeedback>}
-    </div>
+const customInput = ({ field, form: { touched, errors }, ...props }) => (
+  <div>
+    <Input
+      invalid={!!(touched[field.name] && errors[field.name])}
+      {...field}
+      {...props}
+    />
+    {touched[field.name] && errors[field.name] && (
+      <FormFeedback>{errors[field.name]}</FormFeedback>
+    )}
+  </div>
 );
 const SignupSchema = Yup.object().shape({
     username: Yup.string().min(5, 'Username must be at least 5 characters').max(20, 'Username cannot exceed 20 characters').required('Required'),
@@ -68,4 +74,4 @@ const SignupSchema = Yup.object().shape({
     password: Yup.string().min(6, 'Must be at least 6 characters').max(25, 'Password cannot exceed 25 characters').required('Required')
 });
 
-export default RegistrationForm
+export default RegistrationForm;

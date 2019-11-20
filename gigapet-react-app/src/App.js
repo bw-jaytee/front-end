@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import { Route, Redirect} from 'react-router-dom';
 import './App.css';
 import './styles.css';
 import Login from './components/Login';
@@ -11,6 +11,7 @@ import FoodSummary from './components/FoodSummary'
 function App() {
   return (
     <div className="App">
+      <Redirect exact path="/" to="/login"/>
       <Route path="/login" component={Login}/>
       <Route path='/register' component={RegistrationForm}/>
       <Route path='/summary' component={FoodSummary} />
