@@ -4,18 +4,22 @@ import {Formik, Field} from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+// https://stilljack-gigapetbackend.herokuapp.com/createnewuser
 
 const RegistrationForm = (props) => {
 
-    const FormSubmit = (values, {setStatus}) => {
+    const FormSubmit = (values, {setSubmitting, resetForm}) => {
         axios
         .post('https://stilljack-gigapetbackend.herokuapp.com/createnewuser', values)
         .then(res => {
-            setStatus(res.data);
-            console.log(res.data)
+            console.log(res.data);
+            resetForm({});
+        })
+        .catch(err => console.log(err.res, 'You\'ve done goofed'))
+        .finally(() => {
+            setSubmitting(false);
             props.history.push(`/login`)
         })
-        .catch(err => console.log(err.res))
     }
 
     return (
@@ -45,7 +49,7 @@ const RegistrationForm = (props) => {
                         <Field type="password" name="password" id="password" placeholder="Enter Password" component={customInput} />
                     </Col>
                 </FormGroup>
-                <Button className='submitButton' type='submit'>Create</Button>
+                <Button className='submitButton' type='submit' disabled={props.isSubmitting}>{props.isSubmitting ? 'Creating...' : 'Create'}</Button>
             </Form>
                 )}
         </Formik>
