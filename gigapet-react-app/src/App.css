@@ -22,7 +22,7 @@
 }
 
 .form{
-  width: 40%;
+  width: 500px;
   margin: 10% auto;
   padding: 4%;
   border: 2px solid black;
@@ -33,7 +33,7 @@
   margin-top: 10%;
   margin-left: 40%;
 }
-=======
+
 .pet-card {
   display: flex;
   justify-content: center;
