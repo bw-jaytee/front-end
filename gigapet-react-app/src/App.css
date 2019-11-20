@@ -33,13 +33,19 @@
   margin-top: 10%;
   margin-left: 40%;
 }
-=======
-.pet-card {
+
+/* .pet-card {
   display: flex;
   justify-content: center;
   margin: 2%;
-}
+} */
 
 .food-entry {
   display: flex;
+  flex-flow: column wrap;
+  padding: 5%;
 }
+
+/* .food-form {
+  margin: 40% 0;
+} */

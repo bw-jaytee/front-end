@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
+import { Button } from 'reactstrap';
 
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-// import FoodEntry from "./FoodEntry";
-// import PetCard from "./PetCard";
+import FoodEntry from "./FoodEntry";
+import PetCard from "./PetCard";
 // import RegistrationForm from "./RegistrationForm";
 import "../styles.css";
 
@@ -38,10 +39,10 @@ const UserHome = props => {
         <button onClick={logOut}>Log Out</button>
       </header>
       <div className="components">
-        <h3 className="component">FoodEntry</h3>
-        <h3 className="component">PetStatus</h3>
+        <PetCard />
+        <FoodEntry />
       </div>
-      <button>See Summary -></button>
+      <Button>See Summary -></Button>
     </>
   );
 };
