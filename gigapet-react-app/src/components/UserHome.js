@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Button } from 'reactstrap';
 
 import { axiosWithAuth } from "../utils/axiosWithAuth";
@@ -22,7 +22,7 @@ const UserHome = props => {
 
   const fetchData = () => {
     axiosWithAuth()
-      .get("/users/getuserinfo")
+      .get("/eatz/alleatzforuser")
       .then(res => {
         console.log(res.data);
         //setUserData({});
@@ -43,15 +43,16 @@ const UserHome = props => {
     <>
       <header className="header">
         <h3>{`Welcome username`}</h3>
-        <button className ="submitButton" onClick={logOut}>Log Out</button>
+        <Button className ="submitButton" onClick={logOut}>Log Out</Button>
       </header>
 
       <div className="components">
         <PetCard />
         <FoodEntry />
+        <Button><Link body inverse style={{color: "white", textDecoration: "none"}} to="/summary">See Food Summary</Link></Button>
       </div>
 
-      <Button>See Summary -></Button>
+      
     </>
   );
 };

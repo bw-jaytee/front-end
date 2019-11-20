@@ -21,12 +21,19 @@
 .food-entry {
   display: flex;
   flex-flow: column wrap;
+  align-items: center;
   padding: 5%;
 }
 
+.card-deck {
+  width: 65%;
+  line-height: 3;
+  margin-top: 5%;
+}
 
 .food-form {
-  margin: 40% 0;
+  margin-bottom: 10%;
+  width: 45%;
 }
 
 .login {

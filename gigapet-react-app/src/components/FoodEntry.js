@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { Card, CardTitle, CardDeck,  CardSubtitle, CardBody,
   InputGroup,
   InputGroupAddon,
@@ -15,9 +15,9 @@ import { Card, CardTitle, CardDeck,  CardSubtitle, CardBody,
 const FoodEntry = ({status, errors, touched}) => {
 
     const [foods, setFoods] = useState([]);
-    const [splitButtonOpen, setSplitButtonOpen] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
-    const toggleSplit = () => setSplitButtonOpen(!splitButtonOpen);
+    const toggleDropDown = () => setDropdownOpen(!dropdownOpen);
 
     useEffect(() => {
         status && setFoods(foods => [...foods, status]);
@@ -25,13 +25,14 @@ const FoodEntry = ({status, errors, touched}) => {
 
   return (
       <div className="food-entry">
-        <InputGroup>
-          <InputGroupButtonDropdown addonType="prepend" isOpen={splitButtonOpen} toggle={toggleSplit}>
-            <Button outline className="food-category" name="category">Select a category</Button>
+        {/* <InputGroup>
+          <InputGroupButtonDropdown addonType="append" isOpen={dropdownOpen} toggle={toggleDropDown}>
+            <DropdownToggle caret type="select" className="food-category" name="category">
+              Select a category
+            </DropdownToggle>
               {touched.category && errors.category && (
                   <p className="errors">{errors.category}</p>
               )}
-            <DropdownToggle split outline />
             <DropdownMenu>
               <DropdownItem>Carbohydrate</DropdownItem>
               <DropdownItem>Protein</DropdownItem>
@@ -43,16 +44,16 @@ const FoodEntry = ({status, errors, touched}) => {
                 <p className="errors">{errors.entry}</p>
             )}
           <InputGroupAddon addonType="append"><Button color="secondary">Submit</Button></InputGroupAddon>
-        </InputGroup>
+        </InputGroup> */}
 
 
 
 
 
-          {/* <Form className="food-form">
-              <Field type="text" name="entry" placeholder="Enter food here" />
-                {touched.entry && errors.entry && (
-                    <p className="errors">{errors.entry}</p>
+          <Form className="food-form">
+              <Field type="text" name="title" placeholder="Enter food here" />
+                {touched.title && errors.title && (
+                    <p className="errors">{errors.title}</p>
                 )}
               <Field as="select" className="food-category" name="category">
                 <option>Select a category</option>
@@ -64,12 +65,12 @@ const FoodEntry = ({status, errors, touched}) => {
                     <p className="errors">{errors.category}</p>
                 )}
               <Button type="submit">Submit</Button>
-          </Form> */}
+          </Form>
           {foods.map(food => (
             <CardDeck key={food.id}>
                 <Card>
                     <CardBody>
-                    <CardTitle>Food: {food.entry}</CardTitle>
+                    <CardTitle>Food: {food.title}</CardTitle>
                     <CardSubtitle>Category: {food.category}</CardSubtitle>
                     <Button>Edit</Button>
                     <Button>Delete</Button>
@@ -82,19 +83,22 @@ const FoodEntry = ({status, errors, touched}) => {
 };
 
 const FormikFoodForm = withFormik({
-    mapPropsToValues({ entry, category }) {
+    mapPropsToValues({ title, carbs, proteins, fats }) {
       return {
-        entry: entry || "",
-        category: category || ""
+        title: title || "",
+        carbs: carbs || 0,
+        proteins: proteins || 0,
+        fats: fats || 0
       };
     },
     validationSchema: Yup.object().shape({
-        entry: Yup.string().required("Please enter a food"),
+        title: Yup.string().required("Please enter a food"),
         category: Yup.string().required("Please select a food category")
     }),
     handleSubmit(values, { setStatus }) {
-      axios
-        .post("https://stilljack-gigapetbackend.herokuapp.com/eatz/create", values)
+      console.log(values);
+      axiosWithAuth()
+        .post("/eatz/create", values)
         .then(res => {
           setStatus(res.data);
           console.log(res);
