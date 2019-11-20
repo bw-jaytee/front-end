@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Button } from 'reactstrap';
 
-import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { axiosWithAuth } from '../utils/axiosWithAuth';
+import axios from 'axios';
 import FoodEntry from "./FoodEntry";
 import PetCard from "./PetCard";
 import "../styles.css";
@@ -11,7 +12,7 @@ import "../styles.css";
 
 
 const UserHome = props => {
-  console.log("UserHome props", props);
+  //console.log("UserHome props", props);
 
   //this state will hold ALL user data: userId, name/info, food entry history, pet status as per backend set-up
   const [userData, setUserData] = useState({});
@@ -22,12 +23,12 @@ const UserHome = props => {
 
   const fetchData = () => {
     axiosWithAuth()
-      .get("/users/getuserinfo")
+    .get("/eatz/alleatzforuser")
       .then(res => {
         console.log(res.data);
-        //setUserData({});
+        setUserData(res.data);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err.response));
   };
 
   const logOut = () => {

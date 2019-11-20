@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import axios from "axios";
-// const axios = require("axios");
-//   const oauth = require("axios-oauth-client");
+//import axios from "axios";
+ const axios = require("axios");
+  const oauth = require("axios-oauth-client");
 
 const Login = props => {
   const [creds, setCreds] = useState({
