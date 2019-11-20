@@ -5,7 +5,6 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 import FoodEntry from "./FoodEntry";
 import PetCard from "./PetCard";
 // import FoodSummary from "??";
-import "../styles.css";
 
 const UserHome = props => {
   console.log("UserHome props", props);
@@ -40,11 +39,9 @@ const UserHome = props => {
     <>
       <header className="header">
         <h3>{`Welcome username`}</h3>
-        <button onClick={logOut}>Log Out</button>
+        <button className ="submitButton" onClick={logOut}>Log Out</button>
       </header>
-
       <FoodEntry />
-
       <PetCard />
       <button>See Summary -></button>
     </>
