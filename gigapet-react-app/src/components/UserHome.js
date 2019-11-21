@@ -19,13 +19,13 @@ const UserHome = props => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [userData.length]);
 
   const fetchData = () => {
     axiosWithAuth()
-    .get("/eatz/alleatzforuser")
+    .get("/users/getuserinfo")
       .then(res => {
-        console.log(res.data);
+        console.log("fetchData", res.data);
         setUserData(res.data);
       })
       .catch(err => console.log(err.response));
@@ -37,13 +37,13 @@ const UserHome = props => {
   };
 
   const goToSummary = () => {
-    props.history.push("/register");
+    props.history.push("/summary");
   };
 
   return (
     <>
       <header className="header">
-        <h3>{`Welcome username`}</h3>
+        <h3>{`Welcome ${userData.fullname}`}</h3>
         <button className ="submitButton" onClick={logOut}>Log Out</button>
       </header>
 
@@ -52,7 +52,7 @@ const UserHome = props => {
         <FoodEntry />
       </div>
 
-      <Button>See Summary -></Button>
+      <Button onClick={goToSummary}>See Summary -></Button>
     </>
   );
 };
