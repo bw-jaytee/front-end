@@ -6,6 +6,7 @@ import { axiosWithAuth } from '../utils/axiosWithAuth';
 import axios from 'axios';
 import FoodEntry from "./FoodEntry";
 import PetCard from "./PetCard";
+import EatzList from './EatzList';
 import "../styles.css";
 
 // import FoodSummary from "??";
@@ -15,21 +16,21 @@ const UserHome = props => {
   //console.log("UserHome props", props);
 
   //this state will hold ALL user data: userId, name/info, food entry history, pet status as per backend set-up
-  const [userData, setUserData] = useState({});
+  // const [userData, setUserData] = useState({});
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
-  const fetchData = () => {
-    axiosWithAuth()
-    .get("/eatz/alleatzforuser")
-      .then(res => {
-        console.log(res.data);
-        setUserData(res.data);
-      })
-      .catch(err => console.log(err.response));
-  };
+  // const fetchData = () => {
+  //   axiosWithAuth()
+  //   .get("/eatz/alleatzforuser")
+  //     .then(res => {
+  //       console.log(res.data);
+  //       setUserData(res.data);
+  //     })
+  //     .catch(err => console.log(err.response));
+  // };
 
   const logOut = () => {
     localStorage.clear();
@@ -50,6 +51,7 @@ const UserHome = props => {
       <div className="components">
         <PetCard />
         <FoodEntry />
+        <EatzList />
         <Button><Link body inverse style={{color: "white", textDecoration: "none"}} to="/summary">See Food Summary</Link></Button>
       </div>
 
