@@ -1,25 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { Card, CardSubtitle, CardDeck, Button, CardBody, CardTitle } from 'reactstrap';
 
-const EatzList = () => {
-    const [foodList, setFoodList] = useState([]);
+import { fetchUserData } from "../actions";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-    useEffect(() => {
-        fetchData();
-      }, []);
+const EatzList = props => {
+  //console.log(props, "in EatzList");
+  const [userData, setUserData] = useState();
 
-    const fetchData = () => {
-        axiosWithAuth()
-        .get("/eatz/alleatzforuser")
-          .then(res => {
-            console.log(res.data);
-            setFoodList(res.data);
-          })
-          .catch(err => console.log(err.response));
-      };
-      return (
-        <div>Food Entries go here</div>
-        /* {foods.map(foodItem => (
+  useEffect(() => {
+    props.fetchUserData();
+    setUserData(props.APIdata.usereatz);
+  }, []);
+  console.log("in EatzList userData", userData);
+
+  //console.log("in EatzList", userData);
+
+  // const fetchData = () => {
+  //     axiosWithAuth()
+  //     .get("/eatz/alleatzforuser")
+  //       .then(res => {
+  //         console.log(res.data);
+  //         setUserData(res.data);
+  //       })
+  //       .catch(err => console.log(err.response));
+  //   };
+  return (
+    <>
+     {!userData ? <p>Loading...</p> : 
+     userData.map(food => (
             <CardDeck key={food.id}>
                 <Card>
                     <CardBody>
@@ -33,8 +43,8 @@ const EatzList = () => {
                     </CardBody>
                 </Card>
             </CardDeck>
-        ))} */
-      );
+        ))} 
+  </>);
 };
 
-export default EatzList;
+export default connect(state => state, { fetchUserData })(EatzList);

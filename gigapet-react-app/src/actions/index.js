@@ -23,6 +23,7 @@ export const deleteFood = id => dispatch => {
   };
 
 export const fetchUserData = () => dispatch => {
+  //console.log("fetchUserData started");
   dispatch({ type: FETCH_START });
   axiosWithAuth()
     .get("/users/getuserinfo")

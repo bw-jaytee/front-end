@@ -15,9 +15,9 @@ import AriTest from "./AriTest";
 const UserHome = props => {
   console.log("UserHome props", props);
 
-//   useEffect(() => {
-//     props.fetchUserData();
-//   }, []);
+  useEffect(() => {
+    props.fetchUserData();
+  }, []);
 
   const logOut = () => {
     localStorage.clear();
@@ -50,15 +50,15 @@ const UserHome = props => {
         <PetCard />
         <FoodEntry />
         <EatzList />
-        <AriTest APIeatzData={props.APIdata.usereatz}
+        {/* <AriTest APIeatzData={props.APIdata.usereatz}
         deleteFood={props.deleteFood}
         editFood={props.editFood}
         fetchUserData={fetchUserData}
-        />
+        /> */}
         <Button><Link body inverse style={{color: "white", textDecoration: "none"}} to="/summary">See Food Summary</Link></Button>
       </div>
     </>
   );
 };
 
-export default connect(state => state, { fetchUserData, deleteFood, editFood })(withRouter(UserHome));
+export default connect(state => state, { fetchUserData, deleteFood, editFood })(UserHome);

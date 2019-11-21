@@ -19,7 +19,8 @@ const initialState = {
     health: "happy"
   },
   isLoading: false,
-  error: null
+  error: null,
+  changeTrigger: false
 };
 
 const reducer = (state = initialState, action) => {

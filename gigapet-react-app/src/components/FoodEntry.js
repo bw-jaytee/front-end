@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { Card, CardTitle, Button, CardDeck, CardSubtitle, CardBody, FormFeedback, Input } from 'reactstrap';
+import { connect } from 'formik';
 
 const FoodEntry = (props) => {
 
@@ -16,8 +17,8 @@ const FoodEntry = (props) => {
         axiosWithAuth()
           .post("/eatz/create", food)
           .then(res => {
-            // props.fetchData();
             console.log(res);
+             //return !props.changeTrigger;
           })
           .catch(err => console.log(err.response));
     };
@@ -50,4 +51,4 @@ const FoodEntry = (props) => {
     );
 };
 
-export default FoodEntry;
+export default connect(state => state, {})(FoodEntry);
