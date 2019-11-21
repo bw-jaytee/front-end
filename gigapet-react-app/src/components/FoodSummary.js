@@ -37,10 +37,12 @@ const FoodSummary = (props) => {
                     <div>
                         {data.map(data => {
                             return (
-                                <div>
+                                <div classname='summaryItem'>
                                     <p>{new Date(data.createdDate).toDateString()}</p>
                                     <p>{data.title}</p>
-                                    <p>Carbs: {data.carbs}<br/>Proteins: {data.proteins}<br/> Fats: {data.fats}</p>
+                                    <p>{data.carbs>=1 ? `Carbs: ${data.carbs}` : null}</p>
+                                    <p>{data.protein>=1 ? `Protein: ${data.protein}` : null}</p>
+                                    <p>{data.fats>=1 ? `Fats: ${data.fats}` : null}</p>
                                 </div>
                             )
                         })}
@@ -51,10 +53,12 @@ const FoodSummary = (props) => {
                     <div>
                     {data.map(data => {
                             return (
-                                <div>
+                                <div classname='summaryItem'>
                                     <p>{new Date(data.createdDate).toDateString()} - {new Date(data.createdDate ).toDateString()}</p>
                                     <p>{data.title}</p>
-                                    <p>Carbs: {data.carbs}<br/>Proteins: {data.proteins}<br/> Fats: {data.fats}</p>
+                                    <p>{data.carbs>=1 ? `Carbs: ${data.carbs}` : null}</p>
+                                    <p>{data.protein>=1 ? `Protein: ${data.protein}` : null}</p>
+                                    <p>{data.fats>=1 ? `Fats: ${data.fats}` : null}</p>
                                 </div>
                             )
                         })}
@@ -66,10 +70,12 @@ const FoodSummary = (props) => {
                     {data.map(data => {
                             
                             return (
-                                <div>
+                                <div classname='summaryItem'>
                                     <p>{new Date(data.createdDate).toDateString()}</p>
                                     <p>{data.title}</p>
-                                    <p>Carbs: {data.carbs}<br/>Proteins: {data.proteins}<br/> Fats: {data.fats}</p>
+                                    <p>{data.carbs>=1 ? `Carbs: ${data.carbs}` : null}</p>
+                                    <p>{data.protein>=1 ? `Protein: ${data.protein}` : null}</p>
+                                    <p>{data.fats>=1 ? `Fats: ${data.fats}` : null}</p>
                                 </div>
                             )
                         })}
