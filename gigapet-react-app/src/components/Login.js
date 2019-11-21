@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 //import axios from "axios";
- const axios = require("axios");
-  const oauth = require("axios-oauth-client");
+const axios = require("axios");
+//const oauth = require("axios-oauth-client");
 
 const Login = props => {
   const [creds, setCreds] = useState({
@@ -21,8 +20,6 @@ const Login = props => {
     });
     //console.log("entryHandler", value, creds);
   };
-
-  //console.log(btoa("lambda:lambdasecret"));
 
   // post to backend with creds object, token saved to localstorage for access to protected routes, pushes user to home page
   const HandleSubmit = e => {
