@@ -6,13 +6,11 @@ import axios from 'axios';
 
 const RegistrationForm = (props) => {
 
-    const FormSubmit = (values, {setStatus, setSubmitting, resetForm}) => {
+    const FormSubmit = (values, {setSubmitting, resetForm}) => {
         console.log(values)
         axios
         .post('https://stilljack-gigapetbackend.herokuapp.com/createnewuser', values)
         .then(res => {
-            setStatus(res.data)
-            console.log(res);
             resetForm({});
         })
         .catch(err => console.log(err.res, 'You\'ve done goofed'))
