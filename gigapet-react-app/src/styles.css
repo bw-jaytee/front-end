@@ -1,9 +1,10 @@
 .App {
     text-align: center;
+    /* background-color: #F46D25; */
   }
 
   .header {
-      background: purple;
+      background: #800080;
   }
 
 .components {
@@ -11,7 +12,8 @@
     justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
-    margin-top: 5%;
+    padding: 5% 0;
+    background-color: #F46D25;
 }
 
 .component {
@@ -19,3 +21,9 @@
     padding: 15px;
     border: 2px solid;
 }
+
+/* .btn {
+    color: black;
+    background-color: #65FF00;
+    border-color: darkolivegreen;
+  } */
