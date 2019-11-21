@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { Card, CardTitle, Button, CardDeck, CardSubtitle, CardBody, FormFeedback, Input } from 'reactstrap';
 import { connect } from 'react-redux';
+import { fetchUserData } from '../actions';
 
 const FoodEntry = (props) => {
+   console.log("FoodEntry props", props);
 
     const [food, setFood] = useState({
         title: "",
@@ -18,7 +20,7 @@ const FoodEntry = (props) => {
           .post("/eatz/create", food)
           .then(res => {
             console.log(res);
-             //return !props.changeTrigger;
+           props.fetchUserData();
           })
           .catch(err => console.log(err.response));
     };
@@ -51,4 +53,4 @@ const FoodEntry = (props) => {
     );
 };
 
-export default connect(state => state, {})(FoodEntry);
+export default connect(state => state, { fetchUserData })(FoodEntry);

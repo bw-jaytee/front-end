@@ -14,7 +14,7 @@ function App() {
       <Redirect exact path="/" to="/login"/>
       <Route path="/login" component={Login}/>
       <Route path='/register' component={RegistrationForm}/>
-      <Route path='/summary' component={FoodSummary} />
+      <PrivateRoute path='/summary' component={FoodSummary} />
       <PrivateRoute path="/home" component={UserHome} />
     </div>
     

@@ -2,35 +2,37 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Card, CardSubtitle, CardDeck, Button, CardBody, CardTitle } from 'reactstrap';
 
-import { fetchUserData } from "../actions";
+import { fetchUserData, deleteFood } from "../actions";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const EatzList = props => {
-  //console.log(props, "in EatzList");
+  console.log(props, "in EatzList");
   const [userData, setUserData] = useState();
+
+  const [editing, setEditing] = useState({
+    
+  })
 
   useEffect(() => {
     props.fetchUserData();
     setUserData(props.APIdata.usereatz);
-  }, []);
+  }, [props.APIdata.usereatz.length]);
+
   console.log("in EatzList userData", userData);
 
-  //console.log("in EatzList", userData);
+  console.log("in EatzList", userData);
 
-  // const fetchData = () => {
-  //     axiosWithAuth()
-  //     .get("/eatz/alleatzforuser")
-  //       .then(res => {
-  //         console.log(res.data);
-  //         setUserData(res.data);
-  //       })
-  //       .catch(err => console.log(err.response));
-  //   };
+
+const deleteHelper = id => {
+props.deleteFood(id);
+props.fetchUserData();
+};
+
   return (
     <>
      {!userData ? <p>Loading...</p> : 
      userData.map(food => (
-            <CardDeck key={food.id}>
+            <CardDeck key={food.eatzid}>
                 <Card>
                     <CardBody>
                         <CardTitle>Food: {food.title}</CardTitle>
@@ -39,7 +41,7 @@ const EatzList = props => {
                         <CardSubtitle>Protein: {food.proteins}</CardSubtitle>
                         <CardSubtitle>Fat: {food.fats}</CardSubtitle>
                         <Button>Edit</Button>
-                        <Button>Delete</Button>
+                        <Button onClick={()=> deleteHelper(food.eatzid)}>Delete</Button>
                     </CardBody>
                 </Card>
             </CardDeck>
@@ -47,4 +49,4 @@ const EatzList = props => {
   </>);
 };
 
-export default connect(state => state, { fetchUserData })(EatzList);
+export default connect(state => state, { fetchUserData, deleteFood })(EatzList);

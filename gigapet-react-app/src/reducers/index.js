@@ -57,7 +57,13 @@ const reducer = (state = initialState, action) => {
     case DELETE_FOOD:
       console.log("reducer DELETE_FOOD", action.payload);
       return {
-        ...state
+        ...state,
+        APIdata: {
+          ...state.APIdata,
+          usereatz: state.APIdata.usereatz.filter(
+            item => item.eatzid !== action.payload
+          )
+        }
       };
     case EDIT_FOOD:
       console.log("reducer EDIT_FOOD", action.payload);
