@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import { Card, CardTitle, Button, CardDeck, CardSubtitle, CardBody, FormFeedback, Input } from 'reactstrap';
-import { connect } from 'formik';
+import { connect } from 'react-redux';
 
 const FoodEntry = (props) => {
 
