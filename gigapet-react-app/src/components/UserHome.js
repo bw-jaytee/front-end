@@ -5,10 +5,11 @@ import { connect } from "react-redux";
 import FoodEntry from "./FoodEntry";
 import PetCard from "./PetCard";
 import "../styles.css";
-import { fetchUserData } from "../actions";
+import { fetchUserData, deleteFood, editFood } from "../actions";
+import AriTest from "./AriTest";
 
 const UserHome = props => {
-  console.log(props);
+  console.log("UserHome props", props);
 
   useEffect(() => {
     props.fetchUserData();
@@ -44,8 +45,13 @@ const UserHome = props => {
       </header>
 
       <div className="components">
-        <PetCard />
-        <FoodEntry />
+        {/* <PetCard />
+        <FoodEntry /> */}
+        <AriTest APIeatzData={props.APIdata.usereatz}
+        deleteFood={props.deleteFood}
+        editFood={props.editFood}
+        fetchUserData={fetchUserData}
+        />
       </div>
 
       <Button onClick={goToSummary}>See Summary -></Button>
@@ -53,4 +59,4 @@ const UserHome = props => {
   );
 };
 
-export default connect(state => state, { fetchUserData })(withRouter(UserHome));
+export default connect(state => state, { fetchUserData, deleteFood, editFood })(withRouter(UserHome));
