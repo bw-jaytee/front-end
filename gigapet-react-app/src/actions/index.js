@@ -15,6 +15,13 @@ export const addNewFood = newFood => dispatch => {
 export const deleteFood = id => dispatch => {
     console.log("deleteFood AC", id);
     dispatch({ type: DELETE_FOOD, payload: id });
+    axiosWithAuth()
+    //delete}/eatz/delete/ [eatzid]
+    .delete(`/eatz/delete/${id}`)
+    .then(res => {
+     console.log(res.data)
+    })
+    .catch(err => { alert("There was a problem. Please try again later")})
   };
 
   export const editFood = edited => dispatch => {
@@ -23,6 +30,7 @@ export const deleteFood = id => dispatch => {
   };
 
 export const fetchUserData = () => dispatch => {
+  //console.log("fetchUserData started");
   dispatch({ type: FETCH_START });
   axiosWithAuth()
     .get("/users/getuserinfo")

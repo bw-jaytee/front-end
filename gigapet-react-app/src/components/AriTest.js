@@ -34,9 +34,9 @@ const AriTest = props => {
 
   console.log("AriTest test", test);
 
-  useEffect(()=> {
-    setTest(props.fetchUserData());
-  });
+//   useEffect(()=> {
+//     setTest(props.fetchUserData());
+//   }, []);
   console.log("AriTest test2", test);
 
   const onEdit = oldObj => {
