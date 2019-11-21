@@ -1,35 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { withRouter, Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { Button } from 'reactstrap';
-
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import axios from 'axios';
+
 import FoodEntry from "./FoodEntry";
 import PetCard from "./PetCard";
+import EatzList from './EatzList';
 import "../styles.css";
-
-// import FoodSummary from "??";
-
+import { fetchUserData, deleteFood, editFood } from "../actions";
+import AriTest from "./AriTest";
 
 const UserHome = props => {
-  //console.log("UserHome props", props);
+  console.log("UserHome props", props);
 
-  //this state will hold ALL user data: userId, name/info, food entry history, pet status as per backend set-up
-  const [userData, setUserData] = useState({});
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = () => {
-    axiosWithAuth()
-    .get("/eatz/alleatzforuser")
-      .then(res => {
-        console.log(res.data);
-        setUserData(res.data);
-      })
-      .catch(err => console.log(err.response));
-  };
+//   useEffect(() => {
+//     props.fetchUserData();
+//   }, []);
 
   const logOut = () => {
     localStorage.clear();
@@ -37,25 +25,40 @@ const UserHome = props => {
   };
 
   const goToSummary = () => {
-    props.history.push("/register");
+    props.history.push("/summary");
+  };
+
+  //capitalizes first letters of fullname for welcome
+  const formatName = name => {
+    var array1 = name.split(" ");
+    var newarray1 = [];
+
+    for (var x = 0; x < array1.length; x++) {
+      newarray1.push(array1[x].charAt(0).toUpperCase() + array1[x].slice(1));
+    }
+    return newarray1.join(" ");
   };
 
   return (
     <>
       <header className="header">
-        <h3>{`Welcome username`}</h3>
+        <h3>{`Welcome ${formatName(props.APIdata.fullname)}`}</h3>
         <Button className ="submitButton" onClick={logOut}>Log Out</Button>
       </header>
 
       <div className="components">
         <PetCard />
         <FoodEntry />
+        <EatzList />
+        <AriTest APIeatzData={props.APIdata.usereatz}
+        deleteFood={props.deleteFood}
+        editFood={props.editFood}
+        fetchUserData={fetchUserData}
+        />
         <Button><Link body inverse style={{color: "white", textDecoration: "none"}} to="/summary">See Food Summary</Link></Button>
       </div>
-
-      
     </>
   );
 };
 
-export default withRouter(UserHome);
+export default connect(state => state, { fetchUserData, deleteFood, editFood })(withRouter(UserHome));
