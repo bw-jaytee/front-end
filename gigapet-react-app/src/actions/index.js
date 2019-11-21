@@ -22,10 +22,10 @@ export const deleteFood = id => dispatch => {
     dispatch({ type: EDIT_FOOD, payload: edited });
   };
 
-export const fetchFood = () => dispatch => {
-  dispatch({ type: FETCH_LOADING });
+export const fetchUserData = () => dispatch => {
+  dispatch({ type: FETCH_START });
   axiosWithAuth()
-    .get("/eatz/alleatzforuser")
+    .get("/users/getuserinfo")
     .then(res => {
       console.log("API GET res.data", res.data);
       dispatch({ type: FETCH_SUCCESS, payload: res.data });

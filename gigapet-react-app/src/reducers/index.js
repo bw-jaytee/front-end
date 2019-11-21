@@ -8,11 +8,16 @@ import {
 } from "../actions";
 
 const initialState = {
-  data: [],
+  APIdata: {
+    fullname: "User",
+    userid: null,
+    username: "",
+    usereatz: []
+  },
   petData: {
-      stage: baby,
-    health: happy
-    },
+    stage: "baby",
+    health: "happy"
+  },
   isLoading: false,
   error: null
 };
@@ -20,16 +25,18 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_START:
-      console.log("reducer FETCH_SMURF_LOADING");
+      console.log("reducer FETCH_START");
       return {
         ...state,
         isLoading: true
       };
     case FETCH_SUCCESS:
-      console.log("reducer FETCH_SMURF_SUCCESS");
+      console.log("reducer FETCH_SUCCESS");
       return {
         ...state,
-        data: [...state.data, ...action.payload],
+        APIdata: {
+          ...action.payload
+        },
         isLoading: false
       };
     case FETCH_FAIL:
@@ -49,15 +56,14 @@ const reducer = (state = initialState, action) => {
     case DELETE_FOOD:
       console.log("reducer DELETE_FOOD", action.payload);
       return {
-          ...state, 
-
+        ...state
       };
     case EDIT_FOOD:
       console.log("reducer EDIT_FOOD", action.payload);
-      
+
       return {
-          ...state,
-          data: 
+        ...state,
+        data: [...state.data, action.payload]
       };
 
     default:
