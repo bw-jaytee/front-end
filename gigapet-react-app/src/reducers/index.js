@@ -47,13 +47,13 @@ const reducer = (state = initialState, action) => {
         isLoading: false,
         error: action.payload
       };
-    case ADD_FOOD:
-      console.log("reducer ADD_FOOD", action.payload);
-      return {
-        ...state,
-        data: [...state.data, action.payload],
-        isLoading: false
-      };
+    // case ADD_FOOD:
+    //   console.log("reducer ADD_FOOD", action.payload);
+    //   return {
+    //     ...state,
+    //     data: [...state.data, action.payload],
+    //     isLoading: false
+    //   };
     case DELETE_FOOD:
       console.log("reducer DELETE_FOOD", action.payload);
       return {
@@ -67,10 +67,14 @@ const reducer = (state = initialState, action) => {
       };
     case EDIT_FOOD:
       console.log("reducer EDIT_FOOD", action.payload);
-
+const unchangedFoods = state.APIdata.usereatz.filter(
+  item => item.eatzid !== action.payload.id)
       return {
         ...state,
-        data: [...state.data, action.payload]
+        APIdata: {
+          ...state.APIdata,
+          usereatz: [...unchangedFoods, action.payload.editedObj]
+        }
       };
 
     default:

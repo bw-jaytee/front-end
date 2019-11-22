@@ -8,9 +8,7 @@ import axios from 'axios';
 import FoodEntry from "./FoodEntry";
 import PetCard from "./PetCard";
 import EatzList from './EatzList';
-import "../styles.css";
 import { fetchUserData, deleteFood, editFood } from "../actions";
-import AriTest from "./AriTest";
 
 const UserHome = props => {
   console.log("UserHome props", props);
@@ -24,11 +22,7 @@ const UserHome = props => {
     props.history.push("/login");
   };
 
-  const goToSummary = () => {
-    props.history.push("/summary");
-  };
-
-  //capitalizes first letters of fullname for welcome
+  //capitalizes first letters of fullname for welcome banner
   const formatName = name => {
     var array1 = name.split(" ");
     var newarray1 = [];
@@ -61,4 +55,4 @@ const UserHome = props => {
   );
 };
 
-export default connect(state => state, { fetchUserData, deleteFood, editFood })(UserHome);
+export default connect(state => state, { fetchUserData, deleteFood, editFood })(withRouter(UserHome));
