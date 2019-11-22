@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom';
 import { Card, CardSubtitle, CardDeck, Button, CardBody, CardTitle } from 'reactstrap';
 
 import { fetchUserData, deleteFood } from "../actions";
@@ -8,10 +9,6 @@ import { axiosWithAuth } from "../utils/axiosWithAuth";
 const EatzList = props => {
   console.log(props, "in EatzList");
   const [userData, setUserData] = useState();
-
-  const [editing, setEditing] = useState({
-    
-  })
 
   useEffect(() => {
     props.fetchUserData();
@@ -28,6 +25,10 @@ props.deleteFood(id);
 props.fetchUserData();
 };
 
+const handleEdit = (id) => {
+props.history.push(`/editMeal/${id}`);
+  };
+
   return (
     <>
      {!userData ? <p>Loading...</p> : 
@@ -40,7 +41,7 @@ props.fetchUserData();
                         <CardSubtitle>Carbohydrate: {food.carbs}</CardSubtitle>
                         <CardSubtitle>Protein: {food.proteins}</CardSubtitle>
                         <CardSubtitle>Fat: {food.fats}</CardSubtitle>
-                        <Button>Edit</Button>
+                        <Button onClick={()=> handleEdit(food.eatzid)}>Edit</Button>
                         <Button onClick={()=> deleteHelper(food.eatzid)}>Delete</Button>
                     </CardBody>
                 </Card>
@@ -49,4 +50,4 @@ props.fetchUserData();
   </>);
 };
 
-export default connect(state => state, { fetchUserData, deleteFood })(EatzList);
+export default connect(state => state, { fetchUserData, deleteFood })(withRouter(EatzList));

@@ -13,21 +13,29 @@ export const addNewFood = newFood => dispatch => {
 };
 
 export const deleteFood = id => dispatch => {
-    console.log("deleteFood AC", id);
-    dispatch({ type: DELETE_FOOD, payload: id });
-    axiosWithAuth()
+  console.log("deleteFood AC", id);
+  dispatch({ type: DELETE_FOOD, payload: id });
+  axiosWithAuth()
     //delete}/eatz/delete/ [eatzid]
     .delete(`/eatz/delete/${id}`)
     .then(res => {
-     console.log(res.data)
+      console.log(res.data);
     })
-    .catch(err => { alert("There was a problem. Please try again later")})
-  };
+    .catch(err => {
+      alert("There was a problem. Please try again later");
+    });
+};
 
-  export const editFood = edited => dispatch => {
-    console.log("addNewFood AC", edited);
-    dispatch({ type: EDIT_FOOD, payload: edited });
-  };
+export const editFood = (id, editedObj) => dispatch => {
+  console.log("addNewFood AC", editedObj);
+  dispatch({ type: EDIT_FOOD, payload: {id, editedObj} });
+  axiosWithAuth()
+    .put(`/eatz/update/${id}`, editedObj)
+    .then(res => {
+      console.log(res.data);
+    })
+    .catch(err => console.log(err.response));
+};
 
 export const fetchUserData = () => dispatch => {
   //console.log("fetchUserData started");
