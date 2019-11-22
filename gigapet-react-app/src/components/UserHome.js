@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { Button } from 'reactstrap';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import axios from 'axios';
+import '../styles.css';
+import '../App.css';
 
 import FoodEntry from "./FoodEntry";
 import PetCard from "./PetCard";
