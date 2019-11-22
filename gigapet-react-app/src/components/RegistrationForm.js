@@ -11,6 +11,7 @@ const RegistrationForm = (props) => {
         axios
         .post('https://stilljack-gigapetbackend.herokuapp.com/createnewuser', values)
         .then(res => {
+            console.log(props)
             resetForm({});
         })
         .catch(err => console.log(err.res, 'You\'ve done goofed'))

@@ -1,35 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import Moment from 'react-moment';
+import {Link} from 'react-router-dom';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const FoodSummary = (props) => {
     const [data, setData] = useState([]);
+    const [query, setQuery] = useState('');
 
     useEffect(() => {
         axiosWithAuth()
         .get('https://stilljack-gigapetbackend.herokuapp.com/eatz/alleatzforuser')
         .then(res => {
-            console.log(res.data)
-            setData(res.data)
+            const meals = res.data.filter(meal => meal.title.toLowerCase().includes(query.toLowerCase()))
+            setData(meals)
         })
         .catch(error => {
             console.log('You done goofed', error)
         })
-    }, []);
+    }, [query]);
 
-    const goHome = () => {
-        props.history.push('/home');
-      };
+    const handleChange = e => {
+        setQuery(e.target.value)
+    }
+
+    const week = date => {
+        return date - 604800000
+    }
+    
+    const month = date => {
+        return date - 2629800000
+    }
 
     return (
         <div className='summaryContainer'>
             <h2>Meal Summary</h2>
-            <button onClick={goHome}>Home</button>
+            <Link to='/home'>Home</Link>
             <div className='summaryBtnContainer'>
-                <button>Carbs</button>
-                <button>Proteins</button>
-                <button>Fats</button>
-                <button>All</button>
+                <form>
+                    <label htmlfor='name'>Search:</label>
+                    <input type='text' name='name' placeholder='search' onChange={handleChange} value={query}></input>
+                </form>
             </div>
             <div className='listContainer'>
                 <div className='summaryList'>
@@ -37,7 +46,7 @@ const FoodSummary = (props) => {
                     <div>
                         {data.map(data => {
                             return (
-                                <div classname='summaryItem'>
+                                <div className='summaryItem'>
                                     <p>{new Date(data.createdDate).toDateString()}</p>
                                     <p>{data.title}</p>
                                     <p>{data.carbs>=1 ? `Carbs: ${data.carbs}` : null}</p>
@@ -53,8 +62,8 @@ const FoodSummary = (props) => {
                     <div>
                     {data.map(data => {
                             return (
-                                <div classname='summaryItem'>
-                                    <p>{new Date(data.createdDate).toDateString()} - {new Date(data.createdDate ).toDateString()}</p>
+                                <div className='summaryItem'>
+                                    <p>{new Date(data.createdDate).toDateString()} - {new Date(week(data.createdDate)).toDateString()}</p>
                                     <p>{data.title}</p>
                                     <p>{data.carbs>=1 ? `Carbs: ${data.carbs}` : null}</p>
                                     <p>{data.protein>=1 ? `Protein: ${data.protein}` : null}</p>
@@ -70,8 +79,8 @@ const FoodSummary = (props) => {
                     {data.map(data => {
                             
                             return (
-                                <div classname='summaryItem'>
-                                    <p>{new Date(data.createdDate).toDateString()}</p>
+                                <div className='summaryItem'>
+                                    <p>{new Date(data.createdDate).toDateString()} - {new Date(month(data.createdDate)).toDateString()}</p>
                                     <p>{data.title}</p>
                                     <p>{data.carbs>=1 ? `Carbs: ${data.carbs}` : null}</p>
                                     <p>{data.protein>=1 ? `Protein: ${data.protein}` : null}</p>
